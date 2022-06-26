@@ -44,4 +44,10 @@ defmodule Recursivity do
     new_acc = func.(head, acc)
     reduce(tail, new_acc, func)
   end
+
+  def sum_list([]), do: 0
+  def sum_list([hd|tl]), do: hd + sum_list(tl)
+
+  def print_list([]), do: :ok
+  def print_list([hd|tl]), do: IO.puts(hd) && print_list(tl)
 end
