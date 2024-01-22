@@ -31,3 +31,32 @@ pet = Pet.new(%{color: "black", age: 3})
 IO.inspect pet
 IO.inspect Pet.get_color(pet)
 IO.puts "is dog? " <> Pet.is_dog?
+
+
+# example with macros and getters
+defmodule GetterMacros do
+  defmacro define_getter(field) do
+    quote do
+      def unquote(:"get_#{field}")(pet) do
+        pet.unquote(field)
+      end
+    end
+  end
+end
+
+defmodule Pet do
+  import GetterMacros
+
+  defstruct color: nil, age: nil
+
+  define_getter :color
+  define_getter :age
+
+  def new(attrs \\ %{}) do
+    %__MODULE__{
+      color: Map.get(attrs, :color, nil),
+      age: Map.get(attrs, :age, nil)
+    }
+  end
+end
+
