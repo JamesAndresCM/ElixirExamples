@@ -19,7 +19,11 @@ case number do
     try do
       n = number_str |> String.to_integer()
       IO.puts("Factorial of #{n} is #{Factorial.calculate(n)}\n")
-      1..n |> Enum.map(fn x -> "Factorial of #{x} is #{Factorial.calculate(x)}" end) |> Enum.join("\n") |> IO.puts
+
+      1..n
+      |> Enum.map(fn x -> "Factorial of #{x} is #{Factorial.calculate(x)}" end)
+      |> Enum.join("\n")
+      |> IO.puts()
     rescue
       _ ->
         IO.puts("#{number_str} is not a valid number")
